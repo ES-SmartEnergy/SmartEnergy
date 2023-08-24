@@ -1,9 +1,6 @@
 import  express  from "express";
 import {getUsers, addUser, updateUser, deleteUser} from "../controllers/user.js";
 
-i = 10;
-i += 5;
-
 const router = express.Router()
 
 router.get("/", getUsers)
