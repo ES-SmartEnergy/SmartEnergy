@@ -1,55 +1,45 @@
 //import logo from './logo.svg';
 //import './App.css';
-import GlobalStyle from "./styles/global";
-import styled from "styled-components";
-import Form from "./components/Form.js";
-import Grid from "./components/Grid.js";
-import { toast, ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { useEffect, useState } from "react";
-import axios from "axios";
 
+import Crud from "./pages/Crud";
+import Login from './pages/Login';
 
-const Container = styled.div`
-  width: 100%;
-  max-width: 800px;
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-`;
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-const Title = styled.h2``;
+const router = createBrowserRouter( [
+  {
+    path: "login",
+    element: <Login />
+  },
+  {
+    path: "crud",
+    element: <Crud />
+  }
+])
 
 function App() {
-  const [users, setUsers] = useState([]);
-  const [onEdit, setOnEdit] = useState(null);
-
-  const getUsers = async () => {
-    try {
-      const res = await axios.get("http://localhost:8800");
-      setUsers(res.data.sort((a, b) => (a.nome > b.nome ? 1 : -1)));
-    } catch (error) {
-      toast.error(error);
-    }
-  };
-
-  useEffect(() => {
-    getUsers();
-  }, [setUsers]);
-
+  
   return (
+    
+    /*<>
+      <Crud />
+    </>*/
+    
+    /*
     <>
-      <Container>
-        <Title>USUÁRIOS</Title>
-        <Form onEdit={onEdit} setOnEdit={setOnEdit} getUsers={getUsers}/>
-        <Grid setOnEdit={setOnEdit} users={users} setUsers={setUsers} />
-      </Container>
-      <ToastContainer autoClose={2000} position={toast.POSITION.BOTTON_LEFT}/>
-      <GlobalStyle/>
-    </>
+        <div className="App">
+          <header className="App-header">
+            <Login />
+          </header>
+        </div>
+      
+      
+    </>*/
+
+    <RouterProvider router={router} />
+    
   );
+  
 }
 
 export default App;

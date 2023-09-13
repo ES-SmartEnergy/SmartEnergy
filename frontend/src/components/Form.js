@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
+import './../App.css';
 
 const FormContainer = styled.form`
   display: flex;
@@ -69,7 +70,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
 
     if (onEdit) {
       await axios
-        .put("http://localhost:8800/" + onEdit.id, {
+        .put("http://localhost:8800/crud" + onEdit.id, {
           nome: user.nome.value,
           email: user.email.value,
           telefone: user.telefone.value,
@@ -79,7 +80,7 @@ const Form = ({ getUsers, onEdit, setOnEdit }) => {
         .catch(({ data }) => toast.error(data));
     } else {
       await axios
-        .post("http://localhost:8800", {
+        .post("http://localhost:8800/crud", {
           nome: user.nome.value,
           email: user.email.value,
           telefone: user.telefone.value,

@@ -1,4 +1,30 @@
-import { db } from "../db.js";
+import { db, db_autenticar } from "../db.js";
+
+export const autenticarUser = (req, res) => {
+  // Consulta SQL para buscar o usuário pelo nome de usuário
+  const q = 'SELECT * FROM autenticacao WHERE username = ?';
+  
+  db_autenticar.query(q, [req.body.email], (err, results) => {
+    if (err) return res.json(err);
+
+    // Verifique se o nome de usuário foi encontrado no banco de dados
+    if (results.length === 0) {
+      res.status(401).json( {message: "Nome de usuário não encontrado"} ); // Nome de usuário não encontrado
+      return;
+    }
+
+    const user = results[0];
+    const hashedPassword = user.password;
+
+    // Verifique a senha usando bcrypt
+    if (user.password === req.body.password) {
+      console.log("deu bom")
+      return res.status(200).json(results)
+    } else {
+      return res.status(401).json( {message: "senha invalida"} );
+    }
+  });
+};
 
 export const getUsers = (_, res) => {
     const q = "SELECT * FROM usuarios";

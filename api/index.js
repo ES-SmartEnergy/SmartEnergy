@@ -9,4 +9,8 @@ app.use(cors());
 
 app.use("/", userRoutes);
 
+app.use("/crud", userRoutes);
+
+app.use("/login", userRoutes);
+
 app.listen(8800);

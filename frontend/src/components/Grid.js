@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { toast } from "react-toastify";
+import './../App.css';
 
 const Table = styled.table`
   width: 100%;
@@ -48,7 +49,7 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
 
   const handleDelete = async (id) => {
     await axios
-      .delete("http://localhost:8800/" + id)
+      .delete("http://localhost:8800/crud" + id)
       .then(({ data }) => {
         const newArray = users.filter((user) => user.id !== id);
 
