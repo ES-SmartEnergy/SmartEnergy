@@ -1,0 +1,12 @@
+{
+  "name": "SmartEnergy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ES-SmartEnergy/SmartEnergy.git",
+  "author": "Wellington Jhonney <89779113+Wjhonney@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^11.11.0",
+    "serialport": "^12.0.0"
+  }
+}
