@@ -6,10 +6,12 @@ from firebase_admin import firestore
 
 import random
 
-uid = input("Insira o UID do cliente: ")
+#uid = input("Insira o UID do cliente: ")
+
+uid = 'h2fcw1fp08NY75fMn6HsuFwpOAC3'
 
 # Carregue as credenciais do arquivo JSON baixado
-cred = credentials.Certificate("smart-energy-695e0-firebase-adminsdk-22x50-10adce7a05.json")
+cred = credentials.Certificate("C:/Users/jhonn/Documents/GitHub/SmartEnergy/smart-energy-695e0-firebase-adminsdk-22x50-10adce7a05.json")
 
 # Inicialize o Firebase Admin SDK com as credenciais
 firebase_admin.initialize_app(cred)
@@ -31,7 +33,7 @@ for i in range(210):
         # dados detalhados
         documento_ref = db.document('usuarios/' + uid + '/dias_anteriores/dados_detalhados')
         dados = {
-            str(auxiliar[0]['data_hora']): auxiliar
+            str(auxiliar[0]['data_hora']): {'consumo': auxiliar}
         }
         
         documento_ref.set(dados, merge=True)
@@ -52,18 +54,26 @@ for i in range(210):
             contagem_por_comodo[comodo] = contagem_por_comodo.get(comodo, 0) + 1
 
 
-        media_gastos_por_comodo = {}
+        media_gastos_por_comodo = []
         for comodo, total_gasto in total_gastos_por_comodo.items():
             contagem = contagem_por_comodo[comodo]
             media_gastos = total_gasto / contagem
-            media_gastos_por_comodo[comodo] = media_gastos
+            media_gastos_por_comodo.append(
+                { 
+                    'data_hora': auxiliar[0]['data_hora'],
+                    'comodo': comodo,
+                    'gasto': media_gastos
+                }
+            )
+            
+            
         
         
-        print('media_gastos_por_comodo: ', media_gastos_por_comodo)
-        print('total_gastos_por_comodo: ', total_gastos_por_comodo)
+        # print('media_gastos_por_comodo: ', media_gastos_por_comodo)
+        # print('total_gastos_por_comodo: ', total_gastos_por_comodo)
         
         dados = {
-            str('media' + auxiliar[0]['data_hora']): media_gastos_por_comodo
+            str('media_' + auxiliar[0]['data_hora']): media_gastos_por_comodo
         }
         
         documento_ref.set(dados, merge=True)
