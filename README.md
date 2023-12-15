@@ -1,2 +1,2 @@
 # SmartEnergy
-Fiz uma auteração muito importante
+Fiz uma alteração muito importante
